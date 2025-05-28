@@ -33,13 +33,10 @@ mixture = "HEOS::Benzene[0.5]&Toluene[0.5]"
 # Start timing
 startTime = time.time()
 
-# Loop in chunks
-for span in range(size//spanLength):
 
-    val_range = slice(span * spanLength, (span + 1) * spanLength)
-
-    T = randDB[val_range.start]
-    P = randP[val_range.start]
+for row in range(0, size):
+    T = randDB[row]
+    P = randP[row]
 
     try:
         rho_molar = PropsSI("Dmolar", "T", T, "P", P, mixture)  # mol/m3
@@ -49,43 +46,21 @@ for span in range(size//spanLength):
         s_molar = PropsSI("Smolar", "T", T, "P", P, mixture)     # J/mol/K
         s_mass = PropsSI("S", "T", T, "P", P, mixture)           # J/kg/K
 
-        for row in range(val_range.start, val_range.stop):
-            exportDataFrame.loc[row, "molar_density (mol/m3)"] = rho_molar
-            exportDataFrame.loc[row, "mass_density (kg/m3)"] = rho_mass
-            exportDataFrame.loc[row, "molar_enthalpy (J/mol)"] = h_molar
-            exportDataFrame.loc[row, "mass_enthalpy (J/kg)"] = h_mass
-            exportDataFrame.loc[row, "molar_entropy (J/mol/K)"] = s_molar
-            exportDataFrame.loc[row, "mass_entropy (J/kg/K)"] = s_mass
+        exportDataFrame.loc[row, "molar_density (mol/m3)"] = rho_molar
+        exportDataFrame.loc[row, "mass_density (kg/m3)"] = rho_mass
+        exportDataFrame.loc[row, "molar_enthalpy (J/mol)"] = h_molar
+        exportDataFrame.loc[row, "mass_enthalpy (J/kg)"] = h_mass
+        exportDataFrame.loc[row, "molar_entropy (J/mol/K)"] = s_molar
+        exportDataFrame.loc[row, "mass_entropy (J/kg/K)"] = s_mass
 
     except:
-
-        for row in range(val_range.start, val_range.stop):
-            T = randDB[row]
-            P = randP[row]
-
-            try:
-                rho_molar = PropsSI("Dmolar", "T", T, "P", P, mixture)  # mol/m3
-                rho_mass = PropsSI("D", "T", T, "P", P, mixture)         # kg/m3
-                h_molar = PropsSI("Hmolar", "T", T, "P", P, mixture)     # J/mol
-                h_mass = PropsSI("H", "T", T, "P", P, mixture)           # J/kg
-                s_molar = PropsSI("Smolar", "T", T, "P", P, mixture)     # J/mol/K
-                s_mass = PropsSI("S", "T", T, "P", P, mixture)           # J/kg/K
-
-                exportDataFrame.loc[row, "molar_density (mol/m3)"] = rho_molar
-                exportDataFrame.loc[row, "mass_density (kg/m3)"] = rho_mass
-                exportDataFrame.loc[row, "molar_enthalpy (J/mol)"] = h_molar
-                exportDataFrame.loc[row, "mass_enthalpy (J/kg)"] = h_mass
-                exportDataFrame.loc[row, "molar_entropy (J/mol/K)"] = s_molar
-                exportDataFrame.loc[row, "mass_entropy (J/kg/K)"] = s_mass
-
-            except:
-                # Fallbacks in case of error or unsupported region
-                exportDataFrame.loc[row, "molar_density (mol/m3)"] = -1
-                exportDataFrame.loc[row, "mass_density (kg/m3)"] = -1
-                exportDataFrame.loc[row, "molar_enthalpy (J/mol)"] = -1
-                exportDataFrame.loc[row, "mass_enthalpy (J/kg)"] = -1
-                exportDataFrame.loc[row, "molar_entropy (J/mol/K)"] = -1
-                exportDataFrame.loc[row, "mass_entropy (J/kg/K)"] = -1
+        # Fallbacks in case of error or unsupported region
+        exportDataFrame.loc[row, "molar_density (mol/m3)"] = -1
+        exportDataFrame.loc[row, "mass_density (kg/m3)"] = -1
+        exportDataFrame.loc[row, "molar_enthalpy (J/mol)"] = -1
+        exportDataFrame.loc[row, "mass_enthalpy (J/kg)"] = -1
+        exportDataFrame.loc[row, "molar_entropy (J/mol/K)"] = -1
+        exportDataFrame.loc[row, "mass_entropy (J/kg/K)"] = -1
 
 # Finish timing
 endTime = time.time()
