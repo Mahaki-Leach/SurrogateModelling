@@ -6,7 +6,6 @@ import time
 
 # Constants
 size = 10000
-spanLength = 50
 
 # Randomized inputs
 randDB = rand.uniform(193.15, 673.15, size).round(4)  # Temperature in K
