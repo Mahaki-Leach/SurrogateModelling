@@ -1,0 +1,11 @@
+name: psymo
+channels:
+  - conda-forge
+  - defaults
+  - idaes
+dependencies:
+  - python=3.12
+  - idaes-pse=2.8.0
+  - CoolProp
+  - numpy
+  - pandas
