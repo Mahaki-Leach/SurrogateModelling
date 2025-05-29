@@ -32,7 +32,6 @@ mixture = "HEOS::Benzene[0.5]&Toluene[0.5]"
 # Start timing
 startTime = time.time()
 
-
 for row in range(0, size):
     T = randDB[row]
     P = randP[row]

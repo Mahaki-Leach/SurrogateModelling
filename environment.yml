@@ -9,3 +9,4 @@ dependencies:
   - CoolProp
   - numpy
   - pandas
+  - matplotlib

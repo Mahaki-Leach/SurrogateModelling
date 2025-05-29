@@ -15,27 +15,19 @@ from idaes.core.surrogate.plotting.sm_plotter import (
 # Import training data
 np.set_printoptions(precision=6, suppress=True)
 
-csv_data = pd.read_csv("Saved_Mixture_Data.csv")
+csv_data = pd.read_csv("Simple_Data.csv")
 
-csv_data.columns.values[0:10] = [
-    "temperature",
-    "pressure",
-    "mole_frac_benzene",
-    "mole_frac_toluene",
-    "molar_density",
-    "mass_density",
-    "molar_enthalpy",
-    "mass_enthalpy",
-    "molar_entropy",
-    "mass_entropy"
+csv_data.columns.values[0:4] = [
+    "a",
+    "b",
+    "c",
+    "d"
 ]
 
 data = csv_data.sample(n=1000)
 
-print(csv_data.columns)
-
-input_data = data.iloc[:, 0:4]
-output_data = data.iloc[:, 4:10]
+input_data = data.iloc[:, 0:2]
+output_data = data.iloc[:, 2:4]
 
 # Define labels, and split training and validation data
 input_labels = list(input_data.columns)
@@ -54,7 +46,6 @@ trainer = PysmoPolyTrainer(
 
 # Set PySMO trainer options
 trainer.config.maximum_polynomial_order = 5
-trainer.config.max_iter = 1000
 trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
@@ -63,19 +54,16 @@ trainer.config.number_of_crossvalidations = 10
 poly_train = trainer.train_surrogate()
 
 # create callable surrogate object
-xmin, xmax = [273.15, 1000, 0, 0.8], [273.15+400, 900000, 0.2, 1]
+xmin, xmax = [1, 1], [100, 100]
 input_bounds = {input_labels[i]: (xmin[i], xmax[i]) for i in range(len(input_labels))}
 poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds)
 
 # save model to JSON
 model = poly_surr.save_to_file("pysmo_mixture.json", overwrite=True)
 
-# visualize with IDAES surrogate plotting tools
-surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
-surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
-surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
+print(type(data_training))
+print(data_training.columns)
+print(data_training[input_labels].head())
 
 # visualize with IDAES surrogate plotting tools
-surrogate_scatter2D(poly_surr, data_validation, filename="pysmo_poly_val_scatter2D.pdf")
-surrogate_parity(poly_surr, data_validation, filename="pysmo_poly_val_parity.pdf")
-surrogate_residual(poly_surr, data_validation, filename="pysmo_poly_val_residual.pdf")
+surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
