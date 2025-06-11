@@ -24,7 +24,7 @@ csv_data.columns.values[0:7] = [
     "mole_frac_toluene",
     "enth_mol",
     "entr_mol",
-    "vapor_fraction",
+    "q",
 ]
 
 data = csv_data.sample(n=1000)

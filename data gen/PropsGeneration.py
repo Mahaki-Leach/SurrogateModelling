@@ -6,7 +6,7 @@ import time
 from thermo import Mixture
 
 # Constants
-size = 100
+size = 10000
 
 # Randomized inputs
 randDB = rand.uniform(193.15, 673.15, size).round(4)  # Temperature in K
@@ -22,7 +22,7 @@ exportDataFrame = pd.DataFrame({
 
     "enth_mol": np.ones_like(randDB),
     "entr_mol": np.ones_like(randDB),
-    "vapor_fraction": np.ones_like(randDB),
+    "q": np.ones_like(randDB),
 })
 
 startTime = time.time()
@@ -45,8 +45,12 @@ for row in range(0, size):
         if(q == -1.0): 
             # Determining single phase
             mix = Mixture(["benzene", "toluene"], zs=[b_x, t_x], T=T, P=P)
-            exportDataFrame.loc[row, "vapor_fraction"] = 1.0 if mix.phase == 'g' else 0.0
-
+            exportDataFrame.loc[row, "q"] = 1.0 if mix.phase == 'g' else 0.0
+        else:
+            # Two-phase region
+            exportDataFrame.loc[row, "q"] = q
+        
+        # Store results
         exportDataFrame.loc[row, "enth_mol"] = h_molar
         exportDataFrame.loc[row, "entr_mol"] = s_molar
         
