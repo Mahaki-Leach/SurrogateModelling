@@ -22,14 +22,11 @@ csv_data.columns.values[0:6] = [
     "pressure",
     "mole_frac_benzene",
     "mole_frac_toluene",
-
     "enth_mol",
     "entr_mol",
 ]
 
 data = csv_data.sample(n=1000)
-
-print(csv_data.columns)
 
 input_data = data.iloc[:, 0:4]
 output_data = data.iloc[:, 4:6]
@@ -50,7 +47,7 @@ trainer = PysmoPolyTrainer(
 )
 
 # Set PySMO trainer options
-trainer.config.maximum_polynomial_order = 5
+trainer.config.maximum_polynomial_order = 3
 trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
@@ -59,7 +56,7 @@ trainer.config.number_of_crossvalidations = 10
 poly_train = trainer.train_surrogate()
 
 # create callable surrogate object
-xmin, xmax = [273.15, 1000, 0.5, 0.5], [273.15+400, 900000, 0.5, 0.5]
+xmin, xmax = [273.15, 1000, 0.2, 0.2], [273.15+400, 900000, 0.8, 0.8]
 input_bounds = {input_labels[i]: (xmin[i], xmax[i]) for i in range(len(input_labels))}
 poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds)
 
@@ -67,11 +64,11 @@ poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds
 model = poly_surr.save_to_file("pysmo_mixture.json", overwrite=True)
 
 # visualize with IDAES surrogate plotting tools
-surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
-surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
-surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
+# surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
+# surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
+# surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
 
 # visualize with IDAES surrogate plotting tools
-surrogate_scatter2D(poly_surr, data_validation, filename="pysmo_poly_val_scatter2D.pdf")
+# surrogate_scatter2D(poly_surr, data_validation, filename="pysmo_poly_val_scatter2D.pdf")
 surrogate_parity(poly_surr, data_validation, filename="pysmo_poly_val_parity.pdf")
-surrogate_residual(poly_surr, data_validation, filename="pysmo_poly_val_residual.pdf")
+# surrogate_residual(poly_surr, data_validation, filename="pysmo_poly_val_residual.pdf")

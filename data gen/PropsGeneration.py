@@ -16,14 +16,11 @@ randX = rand.uniform(0.2, 0.8, size)  # Mole fraction DB
 exportDataFrame = pd.DataFrame({
     "temperature": randDB,
     "pressure": randP,
-    "mole_frac_benzene": 0.5,
-    "mole_frac_toluene": 0.5,
+    "mole_frac_benzene": randX,
+    "mole_frac_toluene": 1 - randX,
     "enth_mol": np.ones_like(randDB),
     "entr_mol": np.ones_like(randDB),
 })
-
-# Set mixture
-mixture = "HEOS::Benzene[0.5]&Toluene[0.5]"
 
 # Start timing
 startTime = time.time()
@@ -31,6 +28,11 @@ startTime = time.time()
 for row in range(0, size):
     T = randDB[row]
     P = randP[row]
+    b_x = randX[row]
+    t_x = 1 - b_x
+
+    # Set mixture
+    mixture = f"HEOS::Benzene[{b_x}]&Toluene[{t_x}]"
 
     try:
         h_molar = PropsSI("Hmolar", "T", T, "P", P, mixture)
