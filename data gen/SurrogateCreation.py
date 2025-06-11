@@ -27,7 +27,7 @@ csv_data.columns.values[0:7] = [
     "q",
 ]
 
-data = csv_data.sample(n=10000)
+data = csv_data.sample(n=1000)
 
 input_data = data.iloc[:, 0:4]
 output_data = data.iloc[:, 4:7]
@@ -52,6 +52,14 @@ trainer.config.maximum_polynomial_order = 5
 trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
+
+trainer.config.extra_features = [
+    "pressure*temperature",
+    "pressure*pressure",
+    "temperature*temperature",
+    "mole_frac_benzene*pressure",
+    "mole_frac_benzene*temperature",
+]
 
 # Train surrogate (calls PySMO through IDAES Python wrapper)
 poly_train = trainer.train_surrogate()
