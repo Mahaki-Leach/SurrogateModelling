@@ -17,17 +17,14 @@ np.set_printoptions(precision=6, suppress=True)
 
 csv_data = pd.read_csv("Saved_Mixture_Data.csv")
 
-csv_data.columns.values[0:10] = [
+csv_data.columns.values[0:6] = [
     "temperature",
     "pressure",
     "mole_frac_benzene",
     "mole_frac_toluene",
-    "molar_density",
-    "mass_density",
-    "molar_enthalpy",
-    "mass_enthalpy",
-    "molar_entropy",
-    "mass_entropy"
+
+    "enth_mol",
+    "entr_mol",
 ]
 
 data = csv_data.sample(n=1000)
@@ -35,7 +32,7 @@ data = csv_data.sample(n=1000)
 print(csv_data.columns)
 
 input_data = data.iloc[:, 0:4]
-output_data = data.iloc[:, 4:10]
+output_data = data.iloc[:, 4:6]
 
 # Define labels, and split training and validation data
 input_labels = list(input_data.columns)
@@ -54,7 +51,6 @@ trainer = PysmoPolyTrainer(
 
 # Set PySMO trainer options
 trainer.config.maximum_polynomial_order = 5
-trainer.config.max_iter = 1000
 trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
@@ -63,7 +59,7 @@ trainer.config.number_of_crossvalidations = 10
 poly_train = trainer.train_surrogate()
 
 # create callable surrogate object
-xmin, xmax = [273.15, 1000, 0, 0.8], [273.15+400, 900000, 0.2, 1]
+xmin, xmax = [273.15, 1000, 0.5, 0.5], [273.15+400, 900000, 0.5, 0.5]
 input_bounds = {input_labels[i]: (xmin[i], xmax[i]) for i in range(len(input_labels))}
 poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds)
 
