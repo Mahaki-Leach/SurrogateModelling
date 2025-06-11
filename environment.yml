@@ -2,11 +2,21 @@ name: psymo
 channels:
   - conda-forge
   - defaults
-  - idaes
 dependencies:
-  - python=3.12
-  - idaes-pse=2.8.0
-  - CoolProp
+  - python=3.11.*
   - numpy
+  - scipy
   - pandas
+  - ipykernel
   - matplotlib
+  - CoolProp
+  - xlrd
+  - ipycanvas
+  - pip
+  - pip:
+    - gekko
+    - ipyturtle3
+    - ctREFPROP
+    - idaes-pse[ui,dmf,omlt,grid,coolprop] @ git+https://github.com/IDAES/idaes-pse@main
+    - idaes-examples
+    
