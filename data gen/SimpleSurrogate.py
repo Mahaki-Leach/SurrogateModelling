@@ -75,11 +75,8 @@ poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds
 
 # print(poly_train.output_models.keys())
 
-print(input_data.head())
-print(input_data.dtypes)
-
 poly_surr.evaluate_surrogate(input_data)
 
-# surrogate_parity(poly_surr, data_validation, filename="pysmo_poly_val_parity.pdf")
-# # # Plotting the surrogate model
-# # surrogate_parity(poly_surr, data_validation, filename="parity.pdf", show=True)
+surrogate_parity(poly_surr, data_validation, filename="pysmo_poly_val_parity.pdf")
+# # Plotting the surrogate model
+surrogate_parity(poly_surr, data_validation, filename="parity.pdf", show=True)
