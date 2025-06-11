@@ -27,7 +27,7 @@ csv_data.columns.values[0:7] = [
     "q",
 ]
 
-data = csv_data.sample(n=1000)
+data = csv_data.sample(n=10000)
 
 input_data = data.iloc[:, 0:4]
 output_data = data.iloc[:, 4:7]
@@ -66,7 +66,7 @@ model = poly_surr.save_to_file("pysmo_mixture.json", overwrite=True)
 
 # visualize with IDAES surrogate plotting tools
 # surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
-# surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
+surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
 # surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
 
 # visualize with IDAES surrogate plotting tools
