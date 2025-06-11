@@ -17,19 +17,20 @@ np.set_printoptions(precision=6, suppress=True)
 
 csv_data = pd.read_csv("Saved_Mixture_Data.csv")
 
-csv_data.columns.values[0:6] = [
+csv_data.columns.values[0:7] = [
     "temperature",
     "pressure",
     "mole_frac_benzene",
     "mole_frac_toluene",
     "enth_mol",
     "entr_mol",
+    "vapor_fraction",
 ]
 
 data = csv_data.sample(n=1000)
 
 input_data = data.iloc[:, 0:4]
-output_data = data.iloc[:, 4:6]
+output_data = data.iloc[:, 4:7]
 
 # Define labels, and split training and validation data
 input_labels = list(input_data.columns)
@@ -47,7 +48,7 @@ trainer = PysmoPolyTrainer(
 )
 
 # Set PySMO trainer options
-trainer.config.maximum_polynomial_order = 3
+trainer.config.maximum_polynomial_order = 5
 trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
