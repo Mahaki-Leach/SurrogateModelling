@@ -1,1 +1,361 @@
-{"model_encoding": {"enth_mol": {"attr": {"regression_data_columns": ["temperature", "pressure", "mole_frac_benzene", "mole_frac_toluene"], "multinomials": 1, "additional_term_expressions": ["IndexedParam[pressure]*IndexedParam[temperature]", "IndexedParam[pressure]*IndexedParam[pressure]", "IndexedParam[temperature]*IndexedParam[temperature]", "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"], "optimal_weights_array": [[184.83396896689624], [-5450.999059568911], [-16710059.58701422], [865.1947171683834], [-608.3857778494388], [409579.0512497523], [-52395718.93648139], [840.9721781579811], [-652.9172353881403], [0.00038446518443830156], [1.4985176234174672e-13], [682.043612746548], [-534.6134254242809], [-1.2342407394937063e-06], [-9.997598100663008e-20], [526.7000043043857], [-406.4755074814282], [0.11551440795053693], [3778.796604610288], [9165469.21157747], [5170.858302252622], [16710059.568569027], [31.350224285275708], [-0.11551559376224203], [52395718.936481334], [-409578.1515706794], [7544590.369627115], [1379.557818725057]], "final_polynomial_order": 4, "errors": {"MAE": 5127.037096624334, "MSE": 43891255.757034324, "R2": 0.963585322497789}, "extra_terms_feature_vector": ["IndexedParam[temperature]", "IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]", "IndexedParam[mole_frac_toluene]"]}, "map": {"regression_data_columns": "list", "multinomials": "str", "additional_term_expressions": "other", "optimal_weights_array": "numpy", "final_polynomial_order": "str", "errors": "str", "extra_terms_feature_vector": "other"}}, "entr_mol": {"attr": {"regression_data_columns": ["temperature", "pressure", "mole_frac_benzene", "mole_frac_toluene"], "multinomials": 1, "additional_term_expressions": ["IndexedParam[pressure]*IndexedParam[temperature]", "IndexedParam[pressure]*IndexedParam[pressure]", "IndexedParam[temperature]*IndexedParam[temperature]", "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"], "optimal_weights_array": [[0.09999634052280076], [0.09954607994709991], [-0.1572877903807051], [0.0999978168533816], [0.09999838583367668], [-0.0013166701973139866], [6553.700006248595], [0.09999888483433858], [0.0999993159788923], [-1.5246090003496476e-07], [-9.341949903714624e-16], [0.09999926747861436], [0.0999998728674625], [1.4906085219789684e-07], [0.09957475070650289], [0.14872990035050623], [0.09998429921173932], [0.15648231216501113], [0.09999924707858612], [1.4921503475170134e-07], [-6553.700006247133], [0.0016130172094811512], [0.007714274646972358], [0.099561399265744]], "final_polynomial_order": 3, "errors": {"MAE": 22.472748688636667, "MSE": 907.4682212420231, "R2": 0.8751313294063855}, "extra_terms_feature_vector": ["IndexedParam[temperature]", "IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]", "IndexedParam[mole_frac_toluene]"]}, "map": {"regression_data_columns": "list", "multinomials": "str", "additional_term_expressions": "other", "optimal_weights_array": "numpy", "final_polynomial_order": "str", "errors": "str", "extra_terms_feature_vector": "other"}}, "q": {"attr": {"regression_data_columns": ["temperature", "pressure", "mole_frac_benzene", "mole_frac_toluene"], "multinomials": 1, "additional_term_expressions": ["IndexedParam[pressure]*IndexedParam[temperature]", "IndexedParam[pressure]*IndexedParam[pressure]", "IndexedParam[temperature]*IndexedParam[temperature]", "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"], "optimal_weights_array": [[0.0988252236881368], [-0.040071254676397765], [-0.038465611602090034], [0.09940820137794136], [0.09941701274980913], [-2.9122902112760365e-07], [0.02005365369426753], [0.019137026735788217], [0.03987936234424457], [0.038464126676953134], [0.09972491943422347], [2.9282505701587925e-07], [5.102426898020828e-13], [2.760627626503749e-06], [0.019327172667030323], [0.020052853569663926]], "final_polynomial_order": 1, "errors": {"MAE": 0.2295909240592804, "MSE": 0.07193375702602967, "R2": 0.7097039043108619}, "extra_terms_feature_vector": ["IndexedParam[temperature]", "IndexedParam[pressure]", "IndexedParam[mole_frac_benzene]", "IndexedParam[mole_frac_toluene]"]}, "map": {"regression_data_columns": "list", "multinomials": "str", "additional_term_expressions": "other", "optimal_weights_array": "numpy", "final_polynomial_order": "str", "errors": "str", "extra_terms_feature_vector": "other"}}}, "input_labels": ["temperature", "pressure", "mole_frac_benzene", "mole_frac_toluene"], "output_labels": ["enth_mol", "entr_mol", "q"], "input_bounds": {"temperature": [273.15, 673.15], "pressure": [1000, 900000], "mole_frac_benzene": [0.2, 0.8], "mole_frac_toluene": [0.2, 0.8]}, "surrogate_type": "poly"}
+{
+    "model_encoding": {
+        "enth_mol": {
+            "attr": {
+                "regression_data_columns": [
+                    "temperature",
+                    "pressure",
+                    "mole_frac_benzene",
+                    "mole_frac_toluene"
+                ],
+                "multinomials": 1,
+                "additional_term_expressions": [
+                    "IndexedParam[pressure]*IndexedParam[temperature]",
+                    "IndexedParam[pressure]*IndexedParam[pressure]",
+                    "IndexedParam[temperature]*IndexedParam[temperature]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"
+                ],
+                "optimal_weights_array": [
+                    [
+                        184.83396896689624
+                    ],
+                    [
+                        -5450.999059568911
+                    ],
+                    [
+                        -16710059.58701422
+                    ],
+                    [
+                        865.1947171683834
+                    ],
+                    [
+                        -608.3857778494388
+                    ],
+                    [
+                        409579.0512497523
+                    ],
+                    [
+                        -52395718.93648139
+                    ],
+                    [
+                        840.9721781579811
+                    ],
+                    [
+                        -652.9172353881403
+                    ],
+                    [
+                        0.00038446518443830156
+                    ],
+                    [
+                        1.4985176234174672e-13
+                    ],
+                    [
+                        682.043612746548
+                    ],
+                    [
+                        -534.6134254242809
+                    ],
+                    [
+                        -1.2342407394937063e-06
+                    ],
+                    [
+                        -9.997598100663008e-20
+                    ],
+                    [
+                        526.7000043043857
+                    ],
+                    [
+                        -406.4755074814282
+                    ],
+                    [
+                        0.11551440795053693
+                    ],
+                    [
+                        3778.796604610288
+                    ],
+                    [
+                        9165469.21157747
+                    ],
+                    [
+                        5170.858302252622
+                    ],
+                    [
+                        16710059.568569027
+                    ],
+                    [
+                        31.350224285275708
+                    ],
+                    [
+                        -0.11551559376224203
+                    ],
+                    [
+                        52395718.936481334
+                    ],
+                    [
+                        -409578.1515706794
+                    ],
+                    [
+                        7544590.369627115
+                    ],
+                    [
+                        1379.557818725057
+                    ]
+                ],
+                "final_polynomial_order": 4,
+                "errors": {
+                    "MAE": 5127.037096624334,
+                    "MSE": 43891255.757034324,
+                    "R2": 0.963585322497789
+                },
+                "extra_terms_feature_vector": [
+                    "IndexedParam[temperature]",
+                    "IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]",
+                    "IndexedParam[mole_frac_toluene]"
+                ]
+            },
+            "map": {
+                "regression_data_columns": "list",
+                "multinomials": "str",
+                "additional_term_expressions": "other",
+                "optimal_weights_array": "numpy",
+                "final_polynomial_order": "str",
+                "errors": "str",
+                "extra_terms_feature_vector": "other"
+            }
+        },
+        "entr_mol": {
+            "attr": {
+                "regression_data_columns": [
+                    "temperature",
+                    "pressure",
+                    "mole_frac_benzene",
+                    "mole_frac_toluene"
+                ],
+                "multinomials": 1,
+                "additional_term_expressions": [
+                    "IndexedParam[pressure]*IndexedParam[temperature]",
+                    "IndexedParam[pressure]*IndexedParam[pressure]",
+                    "IndexedParam[temperature]*IndexedParam[temperature]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"
+                ],
+                "optimal_weights_array": [
+                    [
+                        0.09999634052280076
+                    ],
+                    [
+                        0.09954607994709991
+                    ],
+                    [
+                        -0.1572877903807051
+                    ],
+                    [
+                        0.0999978168533816
+                    ],
+                    [
+                        0.09999838583367668
+                    ],
+                    [
+                        -0.0013166701973139866
+                    ],
+                    [
+                        6553.700006248595
+                    ],
+                    [
+                        0.09999888483433858
+                    ],
+                    [
+                        0.0999993159788923
+                    ],
+                    [
+                        -1.5246090003496476e-07
+                    ],
+                    [
+                        -9.341949903714624e-16
+                    ],
+                    [
+                        0.09999926747861436
+                    ],
+                    [
+                        0.0999998728674625
+                    ],
+                    [
+                        1.4906085219789684e-07
+                    ],
+                    [
+                        0.09957475070650289
+                    ],
+                    [
+                        0.14872990035050623
+                    ],
+                    [
+                        0.09998429921173932
+                    ],
+                    [
+                        0.15648231216501113
+                    ],
+                    [
+                        0.09999924707858612
+                    ],
+                    [
+                        1.4921503475170134e-07
+                    ],
+                    [
+                        -6553.700006247133
+                    ],
+                    [
+                        0.0016130172094811512
+                    ],
+                    [
+                        0.007714274646972358
+                    ],
+                    [
+                        0.099561399265744
+                    ]
+                ],
+                "final_polynomial_order": 3,
+                "errors": {
+                    "MAE": 22.472748688636667,
+                    "MSE": 907.4682212420231,
+                    "R2": 0.8751313294063855
+                },
+                "extra_terms_feature_vector": [
+                    "IndexedParam[temperature]",
+                    "IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]",
+                    "IndexedParam[mole_frac_toluene]"
+                ]
+            },
+            "map": {
+                "regression_data_columns": "list",
+                "multinomials": "str",
+                "additional_term_expressions": "other",
+                "optimal_weights_array": "numpy",
+                "final_polynomial_order": "str",
+                "errors": "str",
+                "extra_terms_feature_vector": "other"
+            }
+        },
+        "q": {
+            "attr": {
+                "regression_data_columns": [
+                    "temperature",
+                    "pressure",
+                    "mole_frac_benzene",
+                    "mole_frac_toluene"
+                ],
+                "multinomials": 1,
+                "additional_term_expressions": [
+                    "IndexedParam[pressure]*IndexedParam[temperature]",
+                    "IndexedParam[pressure]*IndexedParam[pressure]",
+                    "IndexedParam[temperature]*IndexedParam[temperature]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"
+                ],
+                "optimal_weights_array": [
+                    [
+                        0.0988252236881368
+                    ],
+                    [
+                        -0.040071254676397765
+                    ],
+                    [
+                        -0.038465611602090034
+                    ],
+                    [
+                        0.09940820137794136
+                    ],
+                    [
+                        0.09941701274980913
+                    ],
+                    [
+                        -2.9122902112760365e-07
+                    ],
+                    [
+                        0.02005365369426753
+                    ],
+                    [
+                        0.019137026735788217
+                    ],
+                    [
+                        0.03987936234424457
+                    ],
+                    [
+                        0.038464126676953134
+                    ],
+                    [
+                        0.09972491943422347
+                    ],
+                    [
+                        2.9282505701587925e-07
+                    ],
+                    [
+                        5.102426898020828e-13
+                    ],
+                    [
+                        2.760627626503749e-06
+                    ],
+                    [
+                        0.019327172667030323
+                    ],
+                    [
+                        0.020052853569663926
+                    ]
+                ],
+                "final_polynomial_order": 1,
+                "errors": {
+                    "MAE": 0.2295909240592804,
+                    "MSE": 0.07193375702602967,
+                    "R2": 0.7097039043108619
+                },
+                "extra_terms_feature_vector": [
+                    "IndexedParam[temperature]",
+                    "IndexedParam[pressure]",
+                    "IndexedParam[mole_frac_benzene]",
+                    "IndexedParam[mole_frac_toluene]"
+                ]
+            },
+            "map": {
+                "regression_data_columns": "list",
+                "multinomials": "str",
+                "additional_term_expressions": "other",
+                "optimal_weights_array": "numpy",
+                "final_polynomial_order": "str",
+                "errors": "str",
+                "extra_terms_feature_vector": "other"
+            }
+        }
+    },
+    "input_labels": [
+        "temperature",
+        "pressure",
+        "mole_frac_benzene",
+        "mole_frac_toluene"
+    ],
+    "output_labels": [
+        "enth_mol",
+        "entr_mol",
+        "q"
+    ],
+    "input_bounds": {
+        "temperature": [
+            273.15,
+            673.15
+        ],
+        "pressure": [
+            1000,
+            900000
+        ],
+        "mole_frac_benzene": [
+            0.2,
+            0.8
+        ],
+        "mole_frac_toluene": [
+            0.2,
+            0.8
+        ]
+    },
+    "surrogate_type": "poly"
+}

@@ -19,3 +19,16 @@ outputs
 - molar_entropy (J/mol/K)
 - mass_entropy (J/kg/K)
 - vapor_quality
+
+- 
+Supported Inputs
+
+Temperature / Pressure / X
+
+Outputs 
+
+
+Select JSON ->
+Retrieve input and output labels
+
+Link 
