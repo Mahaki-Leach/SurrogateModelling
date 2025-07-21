@@ -53,14 +53,6 @@ trainer.config.multinomials = True
 trainer.config.training_split = 0.8
 trainer.config.number_of_crossvalidations = 10
 
-trainer.config.extra_features = [
-    "pressure*temperature",
-    "pressure*pressure",
-    "temperature*temperature",
-    "mole_frac_benzene*pressure",
-    "mole_frac_benzene*temperature",
-]
-
 # Train surrogate (calls PySMO through IDAES Python wrapper)
 poly_train = trainer.train_surrogate()
 
@@ -76,8 +68,3 @@ model = poly_surr.save_to_file("pysmo_mixture.json", overwrite=True)
 # surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
 surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
 # surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
-
-# visualize with IDAES surrogate plotting tools
-# surrogate_scatter2D(poly_surr, data_validation, filename="pysmo_poly_val_scatter2D.pdf")
-surrogate_parity(poly_surr, data_validation, filename="pysmo_poly_val_parity.pdf")
-# surrogate_residual(poly_surr, data_validation, filename="pysmo_poly_val_residual.pdf")

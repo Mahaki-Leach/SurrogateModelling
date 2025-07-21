@@ -9,13 +9,6 @@
                     "mole_frac_toluene"
                 ],
                 "multinomials": 1,
-                "additional_term_expressions": [
-                    "IndexedParam[pressure]*IndexedParam[temperature]",
-                    "IndexedParam[pressure]*IndexedParam[pressure]",
-                    "IndexedParam[temperature]*IndexedParam[temperature]",
-                    "IndexedParam[mole_frac_benzene]*IndexedParam[pressure]",
-                    "IndexedParam[mole_frac_benzene]*IndexedParam[temperature]"
-                ],
                 "optimal_weights_array": [
                     [
                         184.83396896689624
@@ -108,12 +101,6 @@
                     "MSE": 43891255.757034324,
                     "R2": 0.963585322497789
                 },
-                "extra_terms_feature_vector": [
-                    "IndexedParam[temperature]",
-                    "IndexedParam[pressure]",
-                    "IndexedParam[mole_frac_benzene]",
-                    "IndexedParam[mole_frac_toluene]"
-                ]
             },
             "map": {
                 "regression_data_columns": "list",

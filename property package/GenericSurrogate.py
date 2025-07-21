@@ -195,6 +195,7 @@ class _StateBlock(StateBlock):
             if outlvl > 0:
                 _log.info("{} State Released.".format(blk.name))
 
+
 @declare_process_block_class("SurrogateStateBlock", block_class=_StateBlock)
 class SurrogateStateBlockData(StateBlockData):
     """
