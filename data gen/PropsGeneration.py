@@ -15,13 +15,10 @@ randX = rand.uniform(0.2, 0.8, size)  # Mole fraction DB
 
 # Setup DataFrame
 exportDataFrame = pd.DataFrame({
-    # Inputs
     "temperature": randDB,
     "pressure": randP,
     "mole_frac_benzene": randX,
     "mole_frac_toluene": 1 - randX,
-
-    # Outputs
     "enth_mol": np.ones_like(randDB),
     "entr_mol": np.ones_like(randDB),
     "q": np.ones_like(randDB),
