@@ -15,14 +15,15 @@ from idaes.core.surrogate.plotting.sm_plotter import (
 # Import training data
 np.set_printoptions(precision=6, suppress=True)
 
-csv_data = pd.read_csv("Saved_Mixture_Data.csv")
+csv_data = pd.read_csv("data.csv")
 
 csv_data.columns.values[0:7] = [
-    "temperature",
     "pressure",
     "mole_frac_benzene",
     "mole_frac_toluene",
     "enth_mol",
+
+    "temperature",
     "entr_mol",
     "q",
 ]
@@ -47,6 +48,35 @@ trainer = PysmoPolyTrainer(
     training_dataframe=data_training,
 )
 
+# 
+trainer.config.extra_features = [
+    # Basic polynomial terms
+    "pressure*pressure",
+    "mole_frac_benzene*mole_frac_benzene",
+    "mole_frac_toluene*mole_frac_toluene",
+    "enth_mol*enth_mol",
+
+    # Two-way interactions
+    "pressure*mole_frac_benzene",
+    "pressure*mole_frac_toluene",
+    "pressure*enth_mol",
+    "mole_frac_benzene*enth_mol",
+    "mole_frac_toluene*enth_mol",
+
+    # Three-way interactions
+    "pressure*mole_frac_benzene*enth_mol",
+    "pressure*mole_frac_toluene*enth_mol",
+
+    # Redundant mole fractions (might help some models)
+    "mole_frac_benzene*mole_frac_toluene",
+
+    # Optional (if your parser supports log/inverse)
+    "log(pressure)",
+    "log(enth_mol)",
+    "1/pressure",
+    "1/enth_mol",
+]
+
 # Set PySMO trainer options
 trainer.config.maximum_polynomial_order = 5
 trainer.config.multinomials = True
@@ -57,7 +87,7 @@ trainer.config.number_of_crossvalidations = 10
 poly_train = trainer.train_surrogate()
 
 # create callable surrogate object
-xmin, xmax = [273.15, 1000, 0.2, 0.2], [273.15+400, 900000, 0.8, 0.8]
+xmin, xmax = [1000, 0.2, 0.2, -28000], [900000, 0.8, 0.8, 83000]
 input_bounds = {input_labels[i]: (xmin[i], xmax[i]) for i in range(len(input_labels))}
 poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds)
 
@@ -65,6 +95,6 @@ poly_surr = PysmoSurrogate(poly_train, input_labels, output_labels, input_bounds
 model = poly_surr.save_to_file("pysmo_mixture.json", overwrite=True)
 
 # visualize with IDAES surrogate plotting tools
-# surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
+surrogate_scatter2D(poly_surr, data_training, filename="pysmo_poly_train_scatter2D.pdf")
 surrogate_parity(poly_surr, data_training, filename="pysmo_poly_train_parity.pdf")
-# surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
+surrogate_residual(poly_surr, data_training, filename="pysmo_poly_train_residual.pdf")
