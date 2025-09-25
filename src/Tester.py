@@ -1,5 +1,5 @@
 from pyomo.environ import ConcreteModel, value
-from PPv4 import SurrogateParameterBlock, SurrogateStateBlock  # adjust import path
+from PP import SurrogateParameterBlock, SurrogateStateBlock  # adjust import path
 from idaes.core.surrogate.pysmo_surrogate import PysmoSurrogate
 from pyomo.environ import ConcreteModel
 from idaes.core import FlowsheetBlock
