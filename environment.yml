@@ -7,6 +7,7 @@ dependencies:
   - numpy
   - scipy
   - pandas
+  - scikit-learn
   - ipykernel
   - matplotlib
   - CoolProp
@@ -19,4 +20,3 @@ dependencies:
     - ctREFPROP
     - idaes-pse[ui,dmf,omlt,grid,coolprop] @ git+https://github.com/IDAES/idaes-pse@main
     - idaes-examples
-    
