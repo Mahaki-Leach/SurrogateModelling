@@ -158,7 +158,7 @@ class SurrogateStateBlockData(StateBlockData):
         self.pressure = Var(domain=NonNegativeReals, initialize=101325, units=pyunits.Pa)
         self.q = Var(domain=Reals, bounds=(0,1), initialize=0.0, units=pyunits.dimensionless)
 
-        self.mw = Param(initialize=self.params.mw, units=pyunits.kg/pyunits.mol)
+        self.mw = Param(initialize=self.params.config.mw, units=pyunits.kg/pyunits.mol)
 
         self.z = Var(domain=NonNegativeReals, initialize=0.5, bounds=(0,1), units=pyunits.dimensionless)
         self.enth_mol = Var(domain=Reals, initialize=30000, units=pyunits.J/pyunits.mol)
@@ -375,7 +375,7 @@ class SurrogateParameterData(PhysicalParameterBlock):
     CONFIG = PhysicalParameterBlock.CONFIG()
 
     CONFIG.declare("surrogate", ConfigValue(default=None))
-    CONFIG.declare("mw", ConfigValue(default=0.07811, domain=float))
+    CONFIG.declare("mw", ConfigValue(domain=float))
 
     def build(self):
       super(SurrogateParameterData, self).build()

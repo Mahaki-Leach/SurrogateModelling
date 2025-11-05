@@ -1,5 +1,5 @@
 from pyomo.environ import ConcreteModel, value
-from PP import SurrogateParameterBlock, SurrogateStateBlock  # adjust import path
+from PP_v2 import SurrogateParameterBlock, SurrogateStateBlock  # adjust import path
 from idaes.core.surrogate.pysmo_surrogate import PysmoSurrogate
 from pyomo.environ import ConcreteModel
 from idaes.core import FlowsheetBlock
@@ -10,7 +10,8 @@ surr = PysmoSurrogate.load_from_file("pure.json")
 # Create a model and add the property package
 m = ConcreteModel()
 m.params = SurrogateParameterBlock(
-    surrogate=surr
+    surrogate=surr,
+    mw=0.07811
 )
 
 # Build a state block
