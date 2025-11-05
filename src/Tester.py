@@ -5,16 +5,12 @@ from pyomo.environ import ConcreteModel
 from idaes.core import FlowsheetBlock
 
 # Load trained surrogates
-liquid_surr = PysmoSurrogate.load_from_file("Benzene_Liquid_v2.json")
-vapor_surr = PysmoSurrogate.load_from_file("Benzene_Vapor_v2.json")
-twophase_surr = PysmoSurrogate.load_from_file("Benzene_TwoPhase_v2.json")
-# Create a model and add the property package
+surr = PysmoSurrogate.load_from_file("pure.json")
 
+# Create a model and add the property package
 m = ConcreteModel()
 m.params = SurrogateParameterBlock(
-    liquid_surr=liquid_surr,
-    vapor_surr=vapor_surr,
-    twophase_surr=twophase_surr
+    surrogate=surr
 )
 
 # Build a state block
