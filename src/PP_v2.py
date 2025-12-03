@@ -142,11 +142,6 @@ class SurrogateStateBlockData(StateBlockData):
 
     StateBlockData for SurrogatePropertyPackage using IDAES SurrogateBlock.
 
-    Uses 3 surrogates:
-        - liquid_surr: inputs T, P -> outputs enth_mol, entr_mol, z
-        - vapor_surr: inputs T, P -> outputs enth_mol, entr_mol, z
-        - twophase_surr: inputs T, P, q -> outputs enth_mol, entr_mol
-
     """
 
     def build(self):
@@ -160,7 +155,6 @@ class SurrogateStateBlockData(StateBlockData):
 
         self.mw = Param(initialize=self.params.config.mw, units=pyunits.kg/pyunits.mol)
 
-        self.z = Var(domain=NonNegativeReals, initialize=0.5, bounds=(0,1), units=pyunits.dimensionless)
         self.enth_mol = Var(domain=Reals, initialize=30000, units=pyunits.J/pyunits.mol)
         self.entr_mol = Var(domain=Reals, initialize=100, units=pyunits.J/pyunits.mol/pyunits.K)
         self.vol_mol = Var(domain=Reals, initialize=0.0001, units=pyunits.m**3/pyunits.mol)
@@ -213,12 +207,10 @@ class SurrogateStateBlockData(StateBlockData):
                 return b.flow_mol * (1 - b.q)
         self.flow_mol_phase = Expression(self.params.phase_list, rule=rule)
 
-
     def _flow_mass_phase(self):
         def rule(b, p):
             return b.flow_mol_phase[p] * b.mw
         self.flow_mass_phase = Expression(self.params.phase_list, rule=rule)
-
 
     def _flow_mol_phase_comp(self):
         def rule(b, p, i):
@@ -259,30 +251,25 @@ class SurrogateStateBlockData(StateBlockData):
             return b.enth_mol
         self.enth_mol_phase = Expression(self.params.phase_list, rule=rule)
 
-
     def _enth_mass_phase(self):
         def rule(b, p):
             return b.enth_mol_phase[p] / b.mw
         self.enth_mass_phase = Expression(self.params.phase_list, rule=rule)
-
 
     def _enth_mass(self):
         def rule(b):
             return b.enth_mol / b.mw
         self.enth_mass = Expression(rule=rule)
 
-
     def _enth_mass_comp(self):
         def rule(b, i):
             return b.enth_mass * b.mass_frac_comp[i]
         self.enth_mass_comp = Expression(self.params.component_list, rule=rule)
 
-
     def _enth_mol_comp(self):
         def rule(b, i):
             return b.enth_mol * b.mole_frac_comp[i]
         self.enth_mol_comp = Expression(self.params.component_list, rule=rule)
-
 
     def _enth_mol_phase_comp(self):
         def rule(b, p, i):
@@ -298,30 +285,25 @@ class SurrogateStateBlockData(StateBlockData):
             return b.entr_mol
         self.entr_mol_phase = Expression(self.params.phase_list, rule=rule)
 
-
     def _entr_mass_phase(self):
         def rule(b, p):
             return b.entr_mol_phase[p] / b.mw
         self.entr_mass_phase = Expression(self.params.phase_list, rule=rule)
-
 
     def _entr_mass(self):
         def rule(b):
             return b.entr_mol / b.mw
         self.entr_mass = Expression(rule=rule)
 
-
     def _entr_mol_comp(self):
         def rule(b, i):
             return b.entr_mol * b.mole_frac_comp[i]
         self.entr_mol_comp = Expression(self.params.component_list, rule=rule)
 
-
     def _entr_mass_comp(self):
         def rule(b, i):
             return b.entr_mass * b.mass_frac_comp[i]
         self.entr_mass_comp = Expression(self.params.component_list, rule=rule)
-
 
     def _entr_mol_phase_comp(self):
         def rule(b, p, i):

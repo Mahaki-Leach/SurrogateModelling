@@ -4,7 +4,7 @@ from CoolProp.CoolProp import PropsSI, PhaseSI
 import numpy.random as rand
 import time
 
-compound = "Benzene"
+compound = "Toluene"
 size = 1000
 
 # Query bounds from CoolProp
@@ -23,7 +23,7 @@ exportDataFrame = pd.DataFrame({
     "pressure": randP,
     "q": np.nan,
 
-		# Outputs
+	# Outputs
     "enth_mol": np.nan,
     "entr_mol": np.nan,
     "vol_mol": np.nan,
@@ -105,15 +105,15 @@ df_twophase = combinedDataFrame[
 ].reset_index(drop=True)
 
 # Filter only pure liquid and vapor points
-df_liquid_vapor = combinedDataFrame[(combinedDataFrame.q == 0.0) | (combinedDataFrame.q == 1.0)].reset_index(drop=True)
+# df_liquid_vapor = combinedDataFrame[(combinedDataFrame.q == 0.0) | (combinedDataFrame.q == 1.0)].reset_index(drop=True)
 
 # Save as a single CSV
-df_liquid_vapor.to_csv(f"Saved_{compound}_unscaled_LiquidVapor.csv", index=False)
+combinedDataFrame.to_csv(f"{compound}.csv", index=False)
 
 # Save CSVs
-df_liquid.to_csv(f"Saved_{compound}_unscaled_Liquid.csv", index=False)
-df_vapor.to_csv(f"Saved_{compound}_unscaled_Vapor.csv", index=False)
-df_twophase.to_csv(f"Saved_{compound}_unscaled_TwoPhase.csv", index=False)
-combinedDataFrame.to_csv(f"Saved_{compound}_unscaled_Data_Combined.csv", index=False)
+# df_liquid.to_csv(f"Saved_{compound}_unscaled_Liquid.csv", index=False)
+# df_vapor.to_csv(f"Saved_{compound}_unscaled_Vapor.csv", index=False)
+# df_twophase.to_csv(f"Saved_{compound}_unscaled_TwoPhase.csv", index=False)
+# combinedDataFrame.to_csv(f"Saved_{compound}_unscaled_Data_Combined.csv", index=False)
 
 print(f"Saved liquid, vapor, and two-phase datasets for {compound}")

@@ -8,15 +8,13 @@ from idaes.core.surrogate.sampling.data_utils import split_training_validation
 from idaes.core.surrogate.pysmo_surrogate import PysmoRBFTrainer, PysmoSurrogate
 from idaes.core.surrogate.plotting.sm_plotter import (
     surrogate_scatter2D,
-    surrogate_parity,
-    surrogate_residual,
 )
 
 # Import training data
 np.set_printoptions(precision=6, suppress=True)
 
 # Load pure Benzene dataset CSV
-csv_data = pd.read_csv("combined2.csv")
+csv_data = pd.read_csv("Benzene.csv")
 
 # Select subset for training (optional)
 data = csv_data.sample(n=1000, random_state=42)
@@ -35,10 +33,11 @@ trainer = PysmoRBFTrainer(
     training_dataframe=data_training,
 )
 
+# GOOD OPTIONS
 # Configure RBF options
-trainer.config.basis_function = "gaussian"  # Options: 'gaussian', 'multiquadric', 'inverse_multiquadric'
-trainer.config.solution_method = "algebraic"  # Options: 'algebraic' or 'optimization'
-trainer.config.regularization = True        # Helps avoid overfitting or singular matrices
+trainer.config.basis_function = "mq"
+trainer.config.solution_method = "algebraic"
+trainer.config.regularization = True
 
 # Train the RBF surrogate
 rbf_train = trainer.train_surrogate()
@@ -53,9 +52,7 @@ input_bounds = {"temperature": (Tmin, Tmax), "pressure": (Pmin, Pmax), "q": (Qmi
 rbf_surr = PysmoSurrogate(rbf_train, input_labels, output_labels, input_bounds)
 
 # Save surrogate to JSON
-rbf_surr.save_to_file("pysmo_toluene_rbf2.json", overwrite=True)
+rbf_surr.save_to_file("B_v3.json", overwrite=True)
 
 # Visualize results
-surrogate_scatter2D(rbf_surr, data_training, filename="pysmo_toluene_rbf2_scatter2D.pdf")
-surrogate_parity(rbf_surr, data_training, filename="pysmo_toluene_rbf2_parity.pdf")
-surrogate_residual(rbf_surr, data_training, filename="pysmo_toluene_rbf2_residual.pdf")
+surrogate_scatter2D(rbf_surr, data_training, filename="B_v3.pdf")

@@ -138,17 +138,12 @@ class _SurrogateStateBlock(StateBlock):
     def release_state(blk, flags, outlvl=idaeslog.NOTSET):
         unfix_state(blk, flags, outlvl)
 
-@declare_process_block_class("SurrogateStateBlock", block_class=_SurrogateStateBlock)
-class SurrogateStateBlockData(StateBlockData):
+@declare_process_block_class("SurrogateMixtureStateBlock", block_class=_SurrogateStateBlock)
+class SurrogateMixtureStateBlockData(StateBlockData):
 
     """
 
     StateBlockData for SurrogatePropertyPackage using IDAES SurrogateBlock.
-
-    Uses 3 surrogates:
-        - liquid_surr: inputs T, P -> outputs enth_mol, entr_mol, z
-        - vapor_surr: inputs T, P -> outputs enth_mol, entr_mol, z
-        - twophase_surr: inputs T, P, q -> outputs enth_mol, entr_mol
 
     """
 
@@ -372,8 +367,8 @@ class SurrogateStateBlockData(StateBlockData):
 
     # -----------------------------
 
-@declare_process_block_class("SurrogateParameterBlock")
-class SurrogateParameterData(PhysicalParameterBlock):
+@declare_process_block_class("SurrogateMixtureParameterBlock")
+class SurrogateMixtureParameterData(PhysicalParameterBlock):
 
     CONFIG = PhysicalParameterBlock.CONFIG()
 
@@ -381,9 +376,9 @@ class SurrogateParameterData(PhysicalParameterBlock):
     CONFIG.declare("mw", ConfigValue(domain=float))
 
     def build(self):
-      super(SurrogateParameterData, self).build()
+      super(SurrogateMixtureParameterData, self).build()
 
-      self._state_block_class = SurrogateStateBlock
+      self._state_block_class = SurrogateMixtureStateBlock
 
       # Components
       self.benzene = Component()
